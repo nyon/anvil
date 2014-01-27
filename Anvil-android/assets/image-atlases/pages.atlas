@@ -1,0 +1,85 @@
+
+splashScreen.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+splash-screen/splash-image
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+weaponStatBgnd.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+weapon-stat-screen/bgnd-image
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+  
+SmeltingMOCK.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smelting-screen/bgnd-image
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+  
+mainMenuScreen.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+main-menu-screen/bgnd-image
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+  
+
+logo.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+splash-screen/company-logo
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+  
+curtain.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+main-menu/curtain
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+  
+loading.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+intro-video/loading-screen
+  rotate: false
+  xy: 0, 0
+  size: 320, 240
+  orig: 512, 512
+  offset: 0, 0
+  index: -1

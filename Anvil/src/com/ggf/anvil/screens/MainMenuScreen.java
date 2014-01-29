@@ -132,6 +132,18 @@ public class MainMenuScreen extends AbstractScreen {
 			}
 		 });
 		fg.addActor( creditsButton );
+		
+		//3d Test
+		TextButton test3d = new TextButton( "3d Test :)", skin );
+		test3d.setSize(100,20);
+		test3d.setPosition(200, 15);
+		test3d.addListener( new ClickListener() {
+		public void clicked(InputEvent event, float x, float y) {
+			SoundManager.getInstance().play(AnvilSound.CLICK);
+			MainMenuScreen.this.game.setScreen(new Test3dScreen(MainMenuScreen.this.game));
+			}
+		 });
+		fg.addActor( test3d );
 
       
         // retrieve the splash image's region from the atlas

@@ -46,7 +46,6 @@ public abstract class AbstractScreen
     public GameStage getStage() {
 		return stage;
 	}
-    
 
     protected String getName(){
         return getClass().getSimpleName();

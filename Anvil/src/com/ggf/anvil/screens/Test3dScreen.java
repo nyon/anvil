@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g3d.utils.AnimationController.AnimationDesc;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController.AnimationListener;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.UBJsonReader;
 import com.ggf.anvil.Anvil;
@@ -24,7 +25,6 @@ import com.ggf.anvil.Anvil;
 public class Test3dScreen extends AbstractScreen {
 	
 	public PerspectiveCamera cam;
-    public CameraInputController camController;
     public ModelBatch modelBatch;
     public Array<ModelInstance> instances = new Array<ModelInstance>();
     public Environment environment;
@@ -45,10 +45,7 @@ public class Test3dScreen extends AbstractScreen {
         cam.lookAt(0,0,0);
         cam.near = 0.1f;
         cam.far = 300f;
-        cam.update();
- 
-        camController = new CameraInputController(cam);
-        Gdx.input.setInputProcessor(camController);        
+        cam.update();      
         
         UBJsonReader jsonReader = new UBJsonReader();
         G3dModelLoader modelLoader = new G3dModelLoader(jsonReader);
@@ -68,22 +65,19 @@ public class Test3dScreen extends AbstractScreen {
         instances.add(smithInstance);
         
         aniController = new AnimationController(smithInstance);  
-        aniController.setAnimation("Idle1", -1);	//TODO: animation does not work
+        aniController.setAnimation("Idle2", -1);	//TODO: animation does not work :(
 	}
      
     @Override
     public void render(float delta) {
     	
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        
-        camController.update();
-        
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);        
         
         cam.rotateAround(Vector3.Zero, new Vector3(0,1,0),1f);
         cam.update();
-        
-        aniController.update(Gdx.graphics.getDeltaTime());
+
+        aniController.update(delta);
         
         modelBatch.begin(cam);
         modelBatch.render(instances, environment);
@@ -92,6 +86,7 @@ public class Test3dScreen extends AbstractScreen {
      
     @Override
     public void dispose() {
+    	super.dispose();
         modelBatch.dispose();
         instances.clear();
     }	

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -36,10 +35,6 @@ public class WeaponStatsScreen extends AbstractScreen {
 	
 	Skin skin;
 	TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas"));
-	SpriteBatch batch;
-	private BitmapFont font;
-	private Group bg;
-	private Group fg;
 
 	private Image bgndImage;
 	private Item weapon;
@@ -49,12 +44,6 @@ public class WeaponStatsScreen extends AbstractScreen {
 		this.weapon = weapon;
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		skin.addRegions(atlas);
-		fg = new Group();
-		bg = new Group();
-	    bg.setWidth(GAME_VIEWPORT_WIDTH);
-		bg.setHeight(GAME_VIEWPORT_HEIGHT);
-		stage.addActor(bg);
-		stage.addActor(fg);
 		
 		font = new BitmapFont(Gdx.files.internal("skin/default.fnt"), false);
 	}
@@ -63,7 +52,7 @@ public class WeaponStatsScreen extends AbstractScreen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
-	    stage.draw();
+    stage.draw();
 	    SpriteBatch batch = stage.getSpriteBatch();
 	    batch.begin();
 	    weapon.setColor(1, 1, 1, 1);
@@ -75,18 +64,8 @@ public class WeaponStatsScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		super.resize(width, height);
-		
-        Gdx.input.setInputProcessor(stage);
-   	}
-
-	@Override
 	public void show() {
 		super.show();
-		
-		batch = stage.getSpriteBatch();
         
 		 // retrieve the splash image's region from the atlas
         AtlasRegion bgndRegion = getAtlas().findRegion("weapon-stat-screen/bgnd-image");

@@ -1,13 +1,9 @@
 package com.ggf.anvil.screens;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -20,15 +16,10 @@ import com.ggf.anvil.Anvil;
 public class SplashScreen extends AbstractScreen{
     private Image splashImage;
     private Image companyLogo;
-    private Group bg;
 
     
     public SplashScreen(Anvil game){
         super(game);
-        
-        bg = new Group();
-        bg.setWidth(GAME_VIEWPORT_WIDTH);
-		bg.setHeight(GAME_VIEWPORT_HEIGHT);
         
         // retrieve the splash image's region from the atlas
         AtlasRegion logoRegion = this.getAtlas().findRegion("splash-screen/company-logo");
@@ -77,13 +68,7 @@ public class SplashScreen extends AbstractScreen{
         // and finally we add the actor to the stage
         bg.addActor(companyLogo);
         bg.addActor(splashImage);
-        stage.addActor(bg);
     }
 
-    @Override
-    public void show(){
-        super.show();
-
-    }
     
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ggf.anvil.Anvil;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.MusicManager.AnvilMusic;
 import com.ggf.anvil.services.ProfileManager;
 
@@ -62,7 +63,7 @@ public class IntroScreen extends AbstractScreen
   @Override
   public void show()
   {
-    game.getMusicManager().play(AnvilMusic.INTRO);
+    MusicManager.play(AnvilMusic.INTRO);
   }
 
   @Override

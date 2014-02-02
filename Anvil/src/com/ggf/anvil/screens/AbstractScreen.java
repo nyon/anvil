@@ -23,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.ggf.anvil.Anvil;
 import com.ggf.anvil.services.GameStage;
 
@@ -43,7 +42,6 @@ public abstract class AbstractScreen implements Screen
   private SpriteBatch       batch;
   private Skin              skin;
   private TextureAtlas      atlas;
-  private Table             table;
 
   protected Group           fg;
   protected Group           bg;
@@ -75,28 +73,18 @@ public abstract class AbstractScreen implements Screen
     return stage;
   }
 
-  protected String getName()
-  {
-    return getClass().getSimpleName();
-  }
 
   // Lazily loaded collaborators
 
   public BitmapFont getFont()
   {
-    if (font == null)
-    {
-      font = new BitmapFont();
-    }
+    if (font == null) font = new BitmapFont();
     return font;
   }
 
   public SpriteBatch getBatch()
   {
-    if (batch == null)
-    {
-      batch = new SpriteBatch();
-    }
+    if (batch == null) batch = new SpriteBatch();
     return batch;
   }
 
@@ -119,38 +107,6 @@ public abstract class AbstractScreen implements Screen
     return skin;
   }
 
-  protected Table getTable()
-  {
-    if (table == null)
-    {
-      table = new Table(getSkin());
-      table.setFillParent(true);
-      if (Anvil.DEV_MODE)
-      {
-        table.debug();
-      }
-      stage.addActor(table);
-    }
-    return table;
-  }
-
-  // Screen implementation
-
-  @Override
-  public void show()
-  {
-    Gdx.app.log(Anvil.LOG, "Showing screen: " + getName());
-
-    // set the stage as the input processor
-    Gdx.input.setInputProcessor(stage);
-  }
-
-  @Override
-  public void resize(int width, int height)
-  {
-    Gdx.app.log(Anvil.LOG, "Resizing screen: " + getName() + " to: " + width + " x " + height);
-
-  }
 
   @Override
   public void render(float delta)
@@ -168,39 +124,10 @@ public abstract class AbstractScreen implements Screen
 
     // draw the actors
     stage.draw();
-
-    // draw the table debug lines
-    Table.drawDebug(stage);
   }
-
-  @Override
-  public void hide()
-  {
-    Gdx.app.log(Anvil.LOG, "Hiding screen: " + getName());
-
-    // dispose the screen when leaving the screen;
-    // note that the dipose() method is not called automatically by the
-    // framework, so we must figure out when it's appropriate to call it
-    dispose();
-  }
-
-  @Override
-  public void pause()
-  {
-    Gdx.app.log(Anvil.LOG, "Pausing screen: " + getName());
-  }
-
-  @Override
-  public void resume()
-  {
-    Gdx.app.log(Anvil.LOG, "Resuming screen: " + getName());
-  }
-
   @Override
   public void dispose()
   {
-    Gdx.app.log(Anvil.LOG, "Disposing screen: " + getName());
-
     // the following call disposes the screen's stage, but on my computer it
     // crashes the game so I commented it out; more info can be found at:
     // http://www.badlogicgames.com/forum/viewtopic.php?f=11&t=3624
@@ -240,4 +167,36 @@ public abstract class AbstractScreen implements Screen
     fg.addActor(greet);
 
   }
+  
+  @Override
+  public void resize(int width, int height)
+  {
+    
+  }
+  
+
+  @Override
+  public void hide()
+  {
+    
+  }
+
+  @Override
+  public void pause()
+  {
+    
+  }
+
+  @Override
+  public void resume()
+  {
+    
+  }
+  
+  @Override
+  public void show()
+  {
+    
+  }
+
 }

@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.InventoryGrid;
 import com.ggf.anvil.elements.Item;
-import com.ggf.anvil.elements.Item.ItemType;
+import com.ggf.anvil.elements.Item.Type;
 import com.ggf.anvil.elements.Slot;
 import com.ggf.anvil.elements.WeaponEffect;
 import com.ggf.anvil.elements.WeaponEffectList;
@@ -150,7 +150,7 @@ public class InventoryScreen extends AbstractScreen
         ArrayList<Item> gems = new ArrayList<Item>();
         for (Item item : selectedItems)
         {
-          if (item.type == ItemType.WEAPON)
+          if (item.type == Type.WEAPON)
           {
             if (weapon == null)
             {
@@ -162,7 +162,7 @@ public class InventoryScreen extends AbstractScreen
               return;
             }
           }
-          else if (item.type == ItemType.GEM)
+          else if (item.type == Type.GEM)
           {
             gems.add(item);
           }
@@ -207,7 +207,7 @@ public class InventoryScreen extends AbstractScreen
     for (final Item item : player.inventory)
     {
       item.clearListeners();
-      item.addListener(new TooltipListener(item.name + " (" + Item.ItemType.prettyPrint(item.type) + "): " + item.price + " $"));
+      item.addListener(new TooltipListener(item.name + " (" + Item.Type.prettyPrint(item.type) + "): " + item.price + " $"));
       item.addListener(new InputListener() {
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -223,7 +223,7 @@ public class InventoryScreen extends AbstractScreen
 
         public void clicked(InputEvent event, float x, float y)
         {
-          SoundManager.getInstance().play(AnvilSound.CLICK);
+          SoundManager.play(AnvilSound.CLICK);
           if (!isItemSelected)
           {
             selectedItem = item;
@@ -266,7 +266,7 @@ public class InventoryScreen extends AbstractScreen
         InventoryScreen.this.game.setScreen(new SmitheryScreen(InventoryScreen.this.game));
         ProfileManager.getInstance().retrieveProfile().hour++;
 
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
     });

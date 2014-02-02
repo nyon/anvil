@@ -30,6 +30,7 @@ import com.ggf.anvil.elements.Item;
 import com.ggf.anvil.elements.Slot;
 import com.ggf.anvil.services.Merchant;
 import com.ggf.anvil.services.MusicManager.AnvilMusic;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.ProfileManager;
 import com.ggf.anvil.services.SoundManager;
 import com.ggf.anvil.services.SoundManager.AnvilSound;
@@ -42,7 +43,7 @@ public class MarketplaceScreen extends AbstractScreen
 
     public void clicked(InputEvent event, float x, float y)
     {
-      SoundManager.getInstance().play(AnvilSound.CLICK);
+      SoundManager.play(AnvilSound.CLICK);
 
       if (!isItemSelected)
       {
@@ -155,7 +156,7 @@ public class MarketplaceScreen extends AbstractScreen
 
                 if (currentMerchant.gold >= selectedItem.price)
                 {
-                  SoundManager.getInstance().play(AnvilSound.GOLD);
+                  SoundManager.play(AnvilSound.GOLD);
                   ProfileManager.getInstance().retrieveProfile().getPlayer().gold += selectedItem.price;
                   ProfileManager.getInstance().retrieveProfile().getPlayer().inventory.remove(selectedItem);
                   currentMerchant.inventory.add(selectedItem);
@@ -175,7 +176,7 @@ public class MarketplaceScreen extends AbstractScreen
                 }
                 else
                 {
-                  SoundManager.getInstance().play(AnvilSound.WEAPONFAIL);
+                  SoundManager.play(AnvilSound.WEAPONFAIL);
                   messageBox("I got no gold left...");
                 }
 
@@ -220,7 +221,6 @@ public class MarketplaceScreen extends AbstractScreen
             {
               if (!originatedPlayer)
               {
-                System.out.println("BUY " + selectedItem);
 
                 // TODO: TH: show price when picking up, change to selling
                 // action later
@@ -233,7 +233,7 @@ public class MarketplaceScreen extends AbstractScreen
 
                 if (ProfileManager.getInstance().retrieveProfile().getPlayer().gold >= selectedItem.price)
                 {
-                  SoundManager.getInstance().play(AnvilSound.GOLD);
+                  SoundManager.play(AnvilSound.GOLD);
                   currentMerchant.gold += selectedItem.price;
                   ProfileManager.getInstance().retrieveProfile().getPlayer().gold -= selectedItem.price;
                   slot.setItem(selectedItem);
@@ -252,7 +252,7 @@ public class MarketplaceScreen extends AbstractScreen
                 }
                 else
                 {
-                  SoundManager.getInstance().play(AnvilSound.WEAPONFAIL);
+                  SoundManager.play(AnvilSound.WEAPONFAIL);
                   messageBox("Not enough gold, huh?");
                 }
 
@@ -280,7 +280,7 @@ public class MarketplaceScreen extends AbstractScreen
     {
       i.clearListeners(); // WICHTIG
       i.addListener(new InventoryItemListener());
-      i.addListener(new TooltipListener(i.name + "(" + Item.ItemType.prettyPrint(i.type) + "): " + i.price + " $"));
+      i.addListener(new TooltipListener(i.name + "(" + Item.Type.prettyPrint(i.type) + "): " + i.price + " $"));
 
       fg.addActor(i);
     }
@@ -292,7 +292,7 @@ public class MarketplaceScreen extends AbstractScreen
     {
       i.clearListeners(); // WICHTIG
       i.addListener(new InventoryItemListener());
-      i.addListener(new TooltipListener(i.name + "(" + Item.ItemType.prettyPrint(i.type) + "): " + i.price + " $"));
+      i.addListener(new TooltipListener(i.name + "(" + Item.Type.prettyPrint(i.type) + "): " + i.price + " $"));
       fg.addActor(i);
     }
     mg.addAllTheItems(inventory);
@@ -329,7 +329,7 @@ public class MarketplaceScreen extends AbstractScreen
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         ProfileManager.getInstance().retrieveProfile().hour++;
         MarketplaceScreen.this.game.setScreen(new SmitheryScreen(MarketplaceScreen.this.game));
         return true;
@@ -375,46 +375,10 @@ public class MarketplaceScreen extends AbstractScreen
   }
 
   @Override
-  public void resize(int width, int height)
-  {
-    // TODO Auto-generated method stub
-    super.resize(width, height);
-  }
-
-  @Override
   public void show()
   {
     super.show();
-    game.getMusicManager().play(AnvilMusic.FORGING);
+    MusicManager.play(AnvilMusic.FORGING);
 
   }
-
-  @Override
-  public void hide()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void pause()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void resume()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void dispose()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
 }

@@ -69,7 +69,7 @@ public class MainMenuScreen extends AbstractScreen
     startGameButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         MainMenuScreen.this.game.setScreen(ProfileManager.getInstance().retrieveProfile().getPlayer().newbie ? new LoadingScreen(MainMenuScreen.this.game, MainMenuScreen.this) : new SmitheryScreen(MainMenuScreen.this.game));
 
       }
@@ -85,7 +85,7 @@ public class MainMenuScreen extends AbstractScreen
     optionGameButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         MainMenuScreen.this.game.setScreen(new SettingsScreen(MainMenuScreen.this.game, MainMenuScreen.this));
       }
     });
@@ -97,7 +97,7 @@ public class MainMenuScreen extends AbstractScreen
     endGameButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         Gdx.app.exit();
       }
     });
@@ -119,7 +119,7 @@ public class MainMenuScreen extends AbstractScreen
     creditsButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         MainMenuScreen.this.game.setScreen(new CreditsScreen(MainMenuScreen.this.game, MainMenuScreen.this));
       }
     });

@@ -7,14 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -23,8 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.Item;
-import com.ggf.anvil.elements.Item.ItemStates;
+import com.ggf.anvil.elements.Item.State;
 import com.ggf.anvil.elements.WeaponEffect;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.Player;
 import com.ggf.anvil.services.ProfileManager;
 import com.ggf.anvil.services.SoundManager;
@@ -33,19 +32,12 @@ import com.ggf.anvil.services.SoundManager.AnvilSound;
 
 public class WeaponStatsScreen extends AbstractScreen {
 	
-	Skin skin;
-	TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas"));
-
 	private Image bgndImage;
 	private Item weapon;
 
 	public WeaponStatsScreen(Anvil game, Item weapon) {
 		super(game);
-		this.weapon = weapon;
-		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		skin.addRegions(atlas);
-		
-		font = new BitmapFont(Gdx.files.internal("skin/default.fnt"), false);
+		this.weapon = weapon;	
 	}
 	
 	@Override
@@ -57,7 +49,7 @@ public class WeaponStatsScreen extends AbstractScreen {
 	    batch.begin();
 	    weapon.setColor(1, 1, 1, 1);
 	    weapon.setPosition(250, 50);
-	    weapon.setState(ItemStates.ROTATE);
+	    weapon.setState(State.ROTATE);
 	    weapon.draw(batch, 1.0f);
 	    
 	    batch.end();
@@ -86,9 +78,9 @@ public class WeaponStatsScreen extends AbstractScreen {
         exit.addListener(new InputListener() {
         	@Override
         	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        		game.getMusicManager().stop();
+        		MusicManager.stop();
         		game.setScreen(new SmitheryScreen(game));
-        		SoundManager.getInstance().play(AnvilSound.CLICK);
+        		SoundManager.play(AnvilSound.CLICK);
         		return true;
         	}
         });
@@ -104,13 +96,6 @@ public class WeaponStatsScreen extends AbstractScreen {
 	        NinePatchDrawable up_drawable = new NinePatchDrawable(up_patch);
 	        NinePatchDrawable down_drawable = new NinePatchDrawable(down_patch);
 	        TextButtonStyle style = new TextButtonStyle(up_drawable, down_drawable, up_drawable, new BitmapFont());
-	       // TextButtonStyle textButtonStyle = new TextButtonStyle();
-//	        textButtonStyle.up = new TextureRegionDrawable(upRegion);
-//	        textButtonStyle.down = new TextureRegionDrawable(downRegion);
-//	        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-//	        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-//	        textButtonStyle.font = skin.getFont("default");
-	        skin.add("default", style);
 		LabelStyle statsLabelStyle = new LabelStyle(font, Color.WHITE);
 				
 		TextButton sellButton = new TextButton("Sell it!", style);

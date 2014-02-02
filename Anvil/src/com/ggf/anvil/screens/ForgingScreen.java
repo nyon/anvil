@@ -24,9 +24,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.Hitpoint;
 import com.ggf.anvil.elements.Item;
-import com.ggf.anvil.elements.Item.ItemStates;
+import com.ggf.anvil.elements.Item.State;
 import com.ggf.anvil.elements.WeaponPart;
 import com.ggf.anvil.elements.WeaponPrototype;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.MusicManager.AnvilMusic;
 import com.ggf.anvil.services.Player;
 import com.ggf.anvil.services.ProfileManager;
@@ -51,7 +52,6 @@ public class ForgingScreen extends AbstractScreen
   private Item                blade;
 
   private final static int    MAX_DEGREES = 3141;
-  SoundManager                soundMan;
 
   private ArrayList<Hitpoint> hps         = new ArrayList<Hitpoint>();
 
@@ -70,7 +70,6 @@ public class ForgingScreen extends AbstractScreen
     degrees = MAX_DEGREES;
 
     font = new BitmapFont(Gdx.files.internal("skin/default.fnt"), false);
-    soundMan = SoundManager.getInstance();
     wordGen = new WordGenerator();
 
   }
@@ -101,13 +100,13 @@ public class ForgingScreen extends AbstractScreen
         if (calculatedQuality < 0.05f)
         {
           check = new Image(new Texture(Gdx.files.internal("data/lose.png")));
-          soundMan.play(AnvilSound.WEAPONFAIL);
+          SoundManager.play(AnvilSound.WEAPONFAIL);
 
         }
         else
         {
           check = new Image(new Texture(Gdx.files.internal("data/win.png")));
-          soundMan.play(AnvilSound.WEAPONSUCCESS);
+          SoundManager.play(AnvilSound.WEAPONSUCCESS);
 
           weapon.quality = calculatedQuality;
           // TODO: Berechnen aus zerstörten Hitpoints
@@ -236,9 +235,9 @@ public class ForgingScreen extends AbstractScreen
 
   private void resetItemStates()
   {
-    if (grip != null) grip.setState(ItemStates.IN_INVENTORY);
-    if (crossguard != null) crossguard.setState(ItemStates.IN_INVENTORY);
-    if (blade != null) blade.setState(ItemStates.IN_INVENTORY);
+    if (grip != null) grip.setState(State.IN_INVENTORY);
+    if (crossguard != null) crossguard.setState(State.IN_INVENTORY);
+    if (blade != null) blade.setState(State.IN_INVENTORY);
   }
 
   @Override
@@ -247,7 +246,7 @@ public class ForgingScreen extends AbstractScreen
     super.show();
 
     // start playing the menu music
-    game.getMusicManager().play(AnvilMusic.FORGING);
+    MusicManager.play(AnvilMusic.FORGING);
 
     // here we create the splash image actor; its size is set when the
     // resize() method gets called
@@ -313,7 +312,7 @@ public class ForgingScreen extends AbstractScreen
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
-        game.getMusicManager().stop();
+        MusicManager.stop();
         resetItemStates();
         ProfileManager.getInstance().retrieveProfile().hour++;
         game.setScreen(new SmitheryScreen(game));
@@ -334,7 +333,7 @@ public class ForgingScreen extends AbstractScreen
   @Override
   public void hide()
   {
-    game.getMusicManager().stop();
+    MusicManager.stop();
 
   }
 
@@ -355,7 +354,7 @@ public class ForgingScreen extends AbstractScreen
   @Override
   public void dispose()
   {
-    game.getMusicManager().stop();
+    MusicManager.stop();
 
   }
 

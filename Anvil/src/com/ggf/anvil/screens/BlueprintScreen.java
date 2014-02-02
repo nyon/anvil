@@ -19,8 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.InventoryGrid;
 import com.ggf.anvil.elements.Item;
-import com.ggf.anvil.elements.Item.ItemType;
+import com.ggf.anvil.elements.Item.Type;
 import com.ggf.anvil.elements.Slot;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.MusicManager.AnvilMusic;
 import com.ggf.anvil.services.Player;
 import com.ggf.anvil.services.Profile;
@@ -103,7 +104,7 @@ public class BlueprintScreen extends AbstractScreen
     anvilButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y)
       {
-        SoundManager.getInstance().play(AnvilSound.DENGEL1);
+        SoundManager.play(AnvilSound.DENGEL1);
         Item grip = itemSlots[0].getItem();
         Item crossguard = itemSlots[1].getItem();
         Item blade = itemSlots[2].getItem();
@@ -114,7 +115,7 @@ public class BlueprintScreen extends AbstractScreen
           return;
         }
 
-        if (grip.type != ItemType.GRIP || crossguard.type != ItemType.CROSS_GUARD || blade.type != ItemType.BLADE)
+        if (grip.type != Type.GRIP || crossguard.type != Type.CROSS_GUARD || blade.type != Type.BLADE)
         {
           String errorMessage = "The parts don't match the right type!";
           messageBox(errorMessage);
@@ -199,7 +200,7 @@ public class BlueprintScreen extends AbstractScreen
 
         public void clicked(InputEvent event, float x, float y)
         {
-          SoundManager.getInstance().play(AnvilSound.CLICK);
+          SoundManager.play(AnvilSound.CLICK);
           if (!isItemSelected)
           {
             selectedItem = itemToAdd;
@@ -210,7 +211,7 @@ public class BlueprintScreen extends AbstractScreen
           }
         }
       });
-      itemToAdd.addListener(new TooltipListener(itemToAdd.name + "(" + Item.ItemType.prettyPrint(itemToAdd.type) + ")"));
+      itemToAdd.addListener(new TooltipListener(itemToAdd.name + "(" + Item.Type.prettyPrint(itemToAdd.type) + ")"));
     }
     ig.addAllTheItems(player.inventory);
 
@@ -232,7 +233,7 @@ public class BlueprintScreen extends AbstractScreen
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         BlueprintScreen.this.game.setScreen(new SmitheryScreen(BlueprintScreen.this.game));
         return true;
       }
@@ -265,10 +266,7 @@ public class BlueprintScreen extends AbstractScreen
 
   @Override
   public void resize(int width, int height)
-  {
-    // TODO Auto-generated method stub
-    super.resize(width, height);
-
+  { 
     itemSlots[0].setPosition(40, 128);
     itemSlots[1].setPosition(104, 128);
     itemSlots[2].setPosition(168, 128);
@@ -278,8 +276,8 @@ public class BlueprintScreen extends AbstractScreen
   public void show()
   {
     super.show();
-    game.getMusicManager().play(AnvilMusic.FORGING);
-
+    MusicManager.play(AnvilMusic.FORGING);
   }
+
 
 }

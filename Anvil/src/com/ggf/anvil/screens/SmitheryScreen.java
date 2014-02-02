@@ -23,6 +23,7 @@ import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.CharAnimation;
 import com.ggf.anvil.elements.Item;
 import com.ggf.anvil.services.Merchant;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.Profile;
 import com.ggf.anvil.services.ProfileManager;
 import com.ggf.anvil.services.SoundManager;
@@ -41,7 +42,7 @@ public class SmitheryScreen extends AbstractScreen
   public SmitheryScreen(final Anvil game)
   {
     super(game);
-    game.getMusicManager().stop();
+    MusicManager.stop();
   }
 
   @Override
@@ -102,8 +103,7 @@ public class SmitheryScreen extends AbstractScreen
   public void show()
   {
     // retrieve the splash image's region from the atlas
-    SoundManager soundMan = SoundManager.getInstance();
-    soundMan.playLooped(AnvilSound.FIRE);
+    SoundManager.playLooped(AnvilSound.FIRE);
 
     // here we create the splash image actor; its size is set when the
     // resize() method gets called
@@ -132,7 +132,7 @@ public class SmitheryScreen extends AbstractScreen
       {
         // game.setScreen(new ForgingScreen(game));
         game.setScreen(new BlueprintScreen(game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -173,7 +173,7 @@ public class SmitheryScreen extends AbstractScreen
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
         game.setScreen(new InventoryScreen(game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -215,7 +215,7 @@ public class SmitheryScreen extends AbstractScreen
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
         game.setScreen(new BlueprintScreen(game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -261,7 +261,7 @@ public class SmitheryScreen extends AbstractScreen
         String grindMessage = "*grinds hand*";
         for (Item i : p.getPlayer().inventory)
         {
-          if (i.type == Item.ItemType.WEAPON)
+          if (i.type == Item.Type.WEAPON)
           {
             grindMessage = "*grinds weapons*";
             i.price *= 1.01f;
@@ -274,7 +274,7 @@ public class SmitheryScreen extends AbstractScreen
         fg.addActor(info);
 
         p.hour++;
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -315,7 +315,7 @@ public class SmitheryScreen extends AbstractScreen
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
         game.setScreen(new SmeltingScreen(game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -356,7 +356,7 @@ public class SmitheryScreen extends AbstractScreen
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
         game.setScreen(new MarketplaceScreen(game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
+        SoundManager.play(AnvilSound.CLICK);
         return true;
       }
 
@@ -409,10 +409,10 @@ public class SmitheryScreen extends AbstractScreen
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
         SmitheryScreen.this.game.setScreen(new MainMenuScreen(SmitheryScreen.this.game));
-        SoundManager.getInstance().play(AnvilSound.CLICK);
-        SoundManager.getInstance().setEnabled(false);
+        SoundManager.play(AnvilSound.CLICK);
+        SoundManager.setEnabled(false);
 
-        game.getMusicManager().stop();
+        MusicManager.stop();
         return true;
       }
     });

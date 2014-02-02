@@ -24,6 +24,7 @@ import com.ggf.anvil.Anvil;
 import com.ggf.anvil.elements.InventoryGrid;
 import com.ggf.anvil.elements.Item;
 import com.ggf.anvil.elements.Slot;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.Player;
 import com.ggf.anvil.services.Profile;
 import com.ggf.anvil.services.ProfileManager;
@@ -84,7 +85,7 @@ public class SmeltingScreen extends AbstractScreen
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
-        game.getMusicManager().stop();
+        MusicManager.stop();
         ProfileManager.getInstance().retrieveProfile().hour++;
         game.setScreen(new SmitheryScreen(game));
         return true;

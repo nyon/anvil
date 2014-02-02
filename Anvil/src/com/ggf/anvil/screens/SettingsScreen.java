@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.ggf.anvil.Anvil;
+import com.ggf.anvil.services.MusicManager;
 import com.ggf.anvil.services.PreferencesManager;
 import com.ggf.anvil.services.ProfileManager;
 import com.ggf.anvil.services.SoundManager;
@@ -65,18 +66,6 @@ public class SettingsScreen extends AbstractScreen
     // textButtonStyle.font = skin.getFont("default");
     skin.add("default", style);
 
-    final TextButton controllerButton = new TextButton(preferences.isMusicEnabled() ? "Controller: ON" : "Controller: OFF", skin);
-    controllerButton.setSize(120, 20);
-    controllerButton.setPosition(100, 60);
-    controllerButton.addListener(new ClickListener() {
-      public void clicked(InputEvent event, float x, float y)
-      {
-        controllerButton.setText(preferences.isAnvilControllerEnabled() ? "Controller: OFF" : "Controller: ON");
-        preferences.setAnvilControllerEnabled(!preferences.isAnvilControllerEnabled());
-      }
-    });
-    fg.addActor(controllerButton);
-
     final TextButton musicButton = new TextButton(preferences.isMusicEnabled() ? "Music: ON" : "Music: OFF", skin);
     musicButton.setSize(120, 20);
     musicButton.setPosition(100, 95);
@@ -85,7 +74,7 @@ public class SettingsScreen extends AbstractScreen
       {
         musicButton.setText(preferences.isMusicEnabled() ? "Music: OFF" : "Music: ON");
         preferences.setMusicEnabled(!preferences.isMusicEnabled());
-        SettingsScreen.this.game.getMusicManager().setEnabled(preferences.isMusicEnabled());
+        MusicManager.setEnabled(preferences.isMusicEnabled());
       }
     });
     fg.addActor(musicButton);
@@ -98,7 +87,7 @@ public class SettingsScreen extends AbstractScreen
       {
         soundButton.setText(preferences.isSoundEnabled() ? "Sound: OFF" : "Sound: ON");
         preferences.setSoundEnabled(!preferences.isSoundEnabled());
-        SoundManager.getInstance().setEnabled(preferences.isSoundEnabled());
+        SoundManager.setEnabled(preferences.isSoundEnabled());
       }
     });
     fg.addActor(soundButton);
